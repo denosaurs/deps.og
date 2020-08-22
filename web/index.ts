@@ -139,7 +139,7 @@ const markdownOptions: DropdownOption[] = [
 ];
 
 const imageLightOptions: DropdownOption[] = [
-  { text: "Nest", value: "https://nest.land/images/nest.land/logo_light.svg" },
+  { text: "Deps", value: "https://deps.land/logo.svg" },
   { text: "Deno", value: "https://nest.land/images/deno/deno-light.svg" },
   { text: "Rust", value: "https://nest.land/images/rust/rust-light.svg" },
   {
@@ -150,7 +150,7 @@ const imageLightOptions: DropdownOption[] = [
 ];
 
 const imageDarkOptions: DropdownOption[] = [
-  { text: "Nest", value: "https://nest.land/images/nest.land/logo_dark.svg" },
+  { text: "Deps", value: "https://deps.land/logo.svg" },
   { text: "Deno", value: "https://nest.land/images/deno/deno-dark.svg" },
   { text: "Rust", value: "https://nest.land/images/rust/rust-dark.svg" },
   {
@@ -186,10 +186,10 @@ const App = (_: any, state: AppState, setState: SetState) => {
   };
   const {
     fileType = "png",
-    fontSize = "100px",
+    fontSize = "150px",
     theme = "light",
     md = true,
-    text = "**eggs** CLI",
+    text = "module-name",
     images = [imageLightOptions[0].value],
     widths = [],
     heights = [],
@@ -221,7 +221,7 @@ const App = (_: any, state: AppState, setState: SetState) => {
     { className: "split" },
     H(
       "div",
-      { className: "pull-left" },
+      { className: "panel" },
       H(
         "div",
         H(Field, {
@@ -295,7 +295,7 @@ const App = (_: any, state: AppState, setState: SetState) => {
     ),
     H(
       "div",
-      { className: "pull-right" },
+      { className: "panel" },
       H(ImagePreview, {
         src: overrideUrl ? overrideUrl.href : url.href,
         loading: loading,

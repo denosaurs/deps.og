@@ -1,6 +1,6 @@
 import { IncomingMessage } from "http";
 import { parse } from "url";
-import { ParsedRequest, Theme } from "./types";
+import { ParsedRequest } from "./types";
 
 export function parseRequest(req: IncomingMessage) {
   console.log("HTTP " + req.url);
@@ -31,13 +31,10 @@ export function parseRequest(req: IncomingMessage) {
     text: decodeURIComponent(text),
     theme: theme === "dark" ? "dark" : "light",
     md: md === "1" || md === "true",
-    fontSize: fontSize || "100px",
+    fontSize: fontSize || "200px",
     images: getArray(images),
   };
-  parsedRequest.images = getDefaultImages(
-    parsedRequest.images,
-    parsedRequest.theme,
-  );
+  parsedRequest.images = getDefaultImages(parsedRequest.images);
   return parsedRequest;
 }
 
@@ -51,21 +48,19 @@ function getArray(stringOrArray: string[] | string | undefined): string[] {
   }
 }
 
-function getDefaultImages(images: string[], theme: Theme): string[] {
-  const defaultImage = theme === "light"
-    ? "https://nest.land/images/nest.land/logo_light.svg"
-    : "https://nest.land/images/nest.land/logo_dark.svg";
+function getDefaultImages(images: string[]): string[] {
+  const defaultImage = "https://deps.land/logo.svg";
 
   if (!images || !images[0]) {
     return [defaultImage];
   }
   if (
     !images[0].startsWith("https://assets.vercel.com/") &&
-    !images[0].startsWith("https://nest.land/")
+    !images[0].startsWith("https://deps.land/")
   ) {
     images.unshift(defaultImage);
   }
-  if (images[0] == "nestDefault") {
+  if (images[0] == "default") {
     images.unshift(defaultImage);
   }
   return images;

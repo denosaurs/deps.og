@@ -1,7 +1,8 @@
 import { readFileSync } from "fs";
 import marked from "marked";
-import { sanitizeHtml } from "./sanitizer";
+import { sanitize } from "./sanitizer";
 import { ParsedRequest } from "./types";
+
 const twemoji = require("twemoji");
 const twOptions = { folder: "svg", ext: ".svg" };
 const emojify = (text: string) => twemoji.parse(text, twOptions);
@@ -86,14 +87,14 @@ function getCss(theme: string, fontSize: string) {
     .slash {
         color: #BBB;
         font-family: 'JetBrainsMono', Times New Roman, Verdana;
-        font-size: ${sanitizeHtml(fontSize) || "200"}px;
+        font-size: ${sanitize(fontSize) || "200"}px;
         margin-right: 75px;
     }
 
     .plus {
         color: #BBB;
         font-family: 'JetBrainsMono', Times New Roman, Verdana;
-        font-size: ${sanitizeHtml(fontSize) || "200"}px;
+        font-size: ${sanitize(fontSize) || "200"}px;
     }
 
     .spacer {
@@ -109,7 +110,7 @@ function getCss(theme: string, fontSize: string) {
     
     .heading {
         font-family: 'Inter', sans-serif;
-        font-size: ${sanitizeHtml(fontSize)};
+        font-size: ${sanitize(fontSize)};
         font-style: normal;
         color: ${foreground};
         line-height: 1.8;
@@ -135,7 +136,7 @@ export function getHtml(parsedReq: ParsedRequest) {
                       .join("")}
                     ${
                       getSlash(text) +
-                      emojify(md ? marked(text) : sanitizeHtml(text))
+                      emojify(md ? marked(text) : sanitize(text))
                     }
                 </div>
             </div>
@@ -148,9 +149,9 @@ function getImage(src: string, height = "200") {
   return `<img
         class="logo"
         alt="Generated Image"
-        src="${sanitizeHtml(src)}"
+        src="${sanitize(src)}"
         width="auto"
-        height="${sanitizeHtml(height)}"
+        height="${sanitize(height)}"
     />`;
 }
 
@@ -158,7 +159,7 @@ function getSlash(text: string) {
   if (text != "") {
     return `<div class="slash">/</div>`;
   } else {
-    return "nest.land";
+    return "deps.land";
   }
 }
 
